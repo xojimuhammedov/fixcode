@@ -1,0 +1,130 @@
+.register-form label {
+    display: flex;
+    flex-direction: column;
+    color: var(--foreground-default, #344054);
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-transform: capitalize;
+    gap: 12px;
+}
+
+.app {
+    background: url('./assets/Home.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+a:hover {
+    text-decoration: none !important;
+}
+
+.discussion-input {
+    background-color: transparent;
+    width: 100%;
+    outline: none;
+}
+
+.header-title {
+    background: linear-gradient(180deg, #152B46 63.52%, #608CFF 91.55%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: Inter;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.header-titles {
+    color: #828796;
+    font-family: Inter;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-input {
+    border-radius: 8px;
+    border: 3px solid var(--outline-default, #D0D5DD);
+    padding: 12px 16px;
+    width: 100%;
+}
+
+.form-input:focus {
+    border: 3px solid var(--outline-primary, #D1E9FF);
+}
+
+.form-text {
+    color: var(--foreground-low, #98A2B3);
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-transform: capitalize;
+    margin-top: 24px;
+    text-align: center;
+}
+
+.form-text span {
+    color: var(--foreground-primary, #1570EF);
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.container {
+    width: 1340px;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+.active {
+    border-radius: 8px 0px 0px 8px;
+    background: #0153D5;
+    color: #FFF !important;
+    text-align: center;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%;
+    display: flex;
+    padding: 14px 22px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.css-24r72f[aria-selected=true] svg path {
+    stroke: white;
+}
+
+.monaco-editor,
+.monaco-editor-background,
+.margin-view-overlays {
+    background-color: #EDF2FF !important;
+}
+
+canvas {
+    background-color: #EDF2FF !important;
+}
+
+.decorationsOverviewRuler {
+    width: 0 !important;
+}
