@@ -1,8 +1,21 @@
 import { Box, Button, Flex, Heading, Image, Text } from '@chakra-ui/react';
 import React from 'react';
 import ImageHeader from '../assets/Container.png'
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Header = () => {
+    const navigate = useNavigate()
+    const userToken = localStorage.getItem("userToken")
+
+    const handleClick = () => {
+        if (userToken) {
+            navigate("/problems")
+        }
+        else {
+            toast.error("Siz ro'yhatdan o'tishingiz kerak!")
+        }
+    }
     return (
         <Box p={'96px 0'}>
             <Box className='container'>
@@ -11,8 +24,8 @@ const Header = () => {
                     <Heading {...css.title}>Master Coding <span className='header-title'>Skills</span > & Land Your <span className='header-title'>Dream Job</span> With <span className='header-titles'>FixCode</span></Heading>
                     <Text {...css.text}>FixCode's challenges, mock interviews, and automated solutions simplify your journey to mastering coding.</Text>
                     <Flex gap={'20px'} align={'center'}>
-                        <Button {...css.button}>Start Solving</Button>
-                        <Button {...css.buttons}>Start Solving</Button>
+                        <Button onClick={handleClick} {...css.button}>Start Solving</Button>
+                        <Button onClick={handleClick} {...css.buttons}>Start Solving</Button>
                     </Flex>
                 </Flex>
             </Box>
@@ -64,7 +77,7 @@ const css = {
         background: "#1247D1",
         boxShadow: "0px 208.228px 57.702px 0px rgba(0, 3, 25, 0.00), 0px 132.965px 52.684px 0px rgba(0, 3, 25, 0.02), 0px 75.263px 45.158px 0px rgba(0, 3, 25, 0.08), 0px 32.614px 32.614px 0px rgba(0, 3, 25, 0.14), 0px 8.781px 18.816px 0px rgba(0, 3, 25, 0.16)",
         transition: "0.3s",
-        color:"#fff",
+        color: "#fff",
         fontSize: "18px",
         transition: "0.3s",
         width: "150px",

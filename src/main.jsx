@@ -1,5 +1,3 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { ChakraProvider } from '@chakra-ui/react'
@@ -8,10 +6,11 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { AuthProvider } from './context/useAuthContext.jsx'
 import { ToastContainer } from 'react-toastify'
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
     <ToastContainer />
     <BrowserRouter>
       <ChakraProvider>
@@ -22,5 +21,5 @@ createRoot(document.getElementById('root')).render(
         </AuthProvider>
       </ChakraProvider>
     </BrowserRouter>
-  </StrictMode>,
-)
+  </React.StrictMode>
+);

@@ -3,8 +3,21 @@ import React from 'react';
 
 import AvatarGroup from '../assets/avatar-group.png'
 import SectionBanner from '../assets/section-banner.png'
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Section = () => {
+    const navigate = useNavigate()
+    const userToken = localStorage.getItem("userToken")
+
+    const handleClick = () => {
+        if (userToken) {
+            navigate("/problems")
+        }
+        else {
+            toast.error("Siz ro'yhatdan o'tishingiz kerak!")
+        }
+    }
     return (
         <Box p={'48px 0'}>
             <Box className='container' {...css.section}>
@@ -12,7 +25,7 @@ const Section = () => {
                     <Box>
                         <Heading {...css.title}>Want to level up your coding skills? Start now!</Heading>
                         <Text {...css.text}>Sharpen your problem-solving skills with real-world coding challenges, designed to help you excel in technical interviews.</Text>
-                        <Button {...css.button}>Try for free</Button>
+                        <Button onClick={handleClick} {...css.button}>Try for free</Button>
                         <Flex mb={'60px'} gap={'16px'} align={'center'}>
                             <Image src={AvatarGroup} alt='AvatarGroup' />
                             <Text color={'#fff'} fontSize={'20px'}>Join 100k+ Developers</Text>
