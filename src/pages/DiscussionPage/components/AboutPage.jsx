@@ -80,8 +80,8 @@ const AboutPage = () => {
                     <input {...register("content")} placeholder='Type comment here...' className='discussion-input' />
                     <Button type='submit content' {...css.button}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-                            <path d="M12.5 4.5V20.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M7.49997 9.5C7.49997 9.5 11.1825 4.5 12.5001 4.5C13.8177 4.5 17.5 9.5 17.5 9.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M12.5 4.5V20.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M7.49997 9.5C7.49997 9.5 11.1825 4.5 12.5001 4.5C13.8177 4.5 17.5 9.5 17.5 9.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                     </Button>
                 </Flex>
