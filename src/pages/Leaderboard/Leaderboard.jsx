@@ -1,5 +1,5 @@
 import { border, Box, Flex, Heading, Image, SimpleGrid, Text } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Navbar from '../../components/Navbar';
 import useGetAllQuery from '../../hooks/useGetAllQuery';
 
@@ -11,8 +11,12 @@ import BadgeOne from '../../assets/badge-01.png'
 import BadgeTwo from '../../assets/badge-02.png'
 import BadgeThree from '../../assets/badge-03.png'
 import Podium from './components/Podium';
+import Pagination from '../../components/Pagination';
+
+const ITEMS_PER_PAGE = 10;
 
 const Leaderboard = () => {
+    const [currentPage, setCurrentPage] = useState(1);
     const [filter, setFilter] = useState({
         sort_by_xp: true,
         sort_by_badges: false,
@@ -26,9 +30,16 @@ const Leaderboard = () => {
             sort_by_xp: filter?.sort_by_xp,
             sort_by_badges: filter?.sort_by_badges,
             sort_by_problems: filter?.sort_by_problems,
-            sort_by_achievements: filter?.sort_by_achievements
+            sort_by_achievements: filter?.sort_by_achievements,
+            limit: 10000
         }
     })
+
+    const { data: userData } = useGetAllQuery({
+        key: "userData",
+        url: "/users/me"
+    })
+    const getUserId = userData?.data?.id
 
     const handleSortClick = (key) => {
         setFilter({
@@ -39,6 +50,36 @@ const Leaderboard = () => {
             [key]: true,
         });
     };
+
+    const paginatedData = useMemo(() => {
+        if (!data || !Array.isArray(data?.data)) return [];
+
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+        return data?.data?.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    }, [data, currentPage]);
+
+    const currentUserItem = useMemo(() => {
+        if (!data || !Array.isArray(data?.data)) return null;
+        return data?.data?.find(item => item?.user_id === getUserId);
+    }, [data, getUserId]);
+
+    const displayedData = useMemo(() => {
+        if (!paginatedData || !Array.isArray(paginatedData)) return [];
+
+        const isAlreadyIncluded = paginatedData.some(item => item?.user_id === getUserId);
+
+        // Agar mavjud bo‘lsa, oddiy paginatedData
+        if (isAlreadyIncluded || !currentUserItem) return paginatedData;
+
+        // Aks holda userni oxiriga qo‘shamiz
+        return [...paginatedData, currentUserItem];
+    }, [paginatedData, currentUserItem, getUserId]);
+
+
+    const totalPages = useMemo(() => {
+        if (!data || !Array.isArray(data?.data)) return 0;
+        return Math.ceil(data?.data?.length / ITEMS_PER_PAGE);
+    }, [data]);
 
 
     return (
@@ -51,7 +92,7 @@ const Leaderboard = () => {
                 <Text className={`${filter?.sort_by_problems ? 'active' : ""}`} onClick={() => handleSortClick("sort_by_problems")} {...css.name}>Problems Solved</Text>
                 <Text mr={`${filter?.sort_by_achievements ? '0' : "12px"}`} className={`${filter?.sort_by_achievements ? 'active' : ""}`} onClick={() => handleSortClick("sort_by_achievements")} {...css.name}>Achievements</Text>
             </Flex>
-            <SimpleGrid columns={6} {...css.card}>
+            <SimpleGrid columns={6} {...css.cards}>
                 <Text w={'50px'} {...css.names}>Place</Text>
                 <Text {...css.names}>Username</Text>
                 <Text {...css.names}>Experience</Text>
@@ -61,11 +102,15 @@ const Leaderboard = () => {
             </SimpleGrid>
             <Box mt={'24px'}>
                 {
-                    data?.data?.map((item, index) => (
-                        <SimpleGrid border={`2px solid ${item?.rank === 1 ? "#ffd700" : item?.rank === 2 ? "#9e9eb3" : item?.rank === 3 ? "#F6B191" : "#EDF2FF"}`} gap={'8px'} columns={6} m={'20px 0'} key={index} {...css.card}>
+                    displayedData?.map((item, index) => (
+                        <SimpleGrid
+                            className={`${item?.rank === 1 ? "yellow" : item?.rank === 2 ? "gray" : item?.rank === 3 ? "blue" : ""}`}
+                            background={`${item?.user_id == getUserId ? "#6fb9ff" : "#EDF2FF"}`}
+                            border={`2px solid ${item?.rank === 1 ? "#ffd700" : item?.rank === 2 ? "#9e9eb3" : item?.rank === 3 ? "#F6B191" : "#EDF2FF"}`} gap={'8px'} columns={6} m={'20px 0'} key={index} {...css.card}>
                             {
                                 item?.rank === 1 ? <Image {...css.icon} src={BadgeOne} /> : item?.rank === 2 ? <Image {...css.icon} src={BadgeTwo} /> : item?.rank === 3 ? <Image {...css.icon} src={BadgeThree} /> : <Text ml={'24px'} {...css.names}>{item?.rank}</Text>
                             }
+
                             <Heading ml={'-36px'} {...css.subnames}>{item?.username}</Heading>
                             <Text  {...css.names}>{item?.xp} XP</Text>
                             <Text {...css.names}>{item?.badges_count}</Text>
@@ -120,13 +165,15 @@ const Leaderboard = () => {
                                         </Flex> : <Heading fontWeight={'bold'} {...css.names}>{item?.achievements_count}</Heading>
                                 }
                             </Box>
-                            {/* {
-                                item?.achievements_count === 1 ? <Image {...css.image} src={LevelOneImage} /> : item?.achievements_count === 2 ? <Image {...css.image} src={LevelTwoImage} /> : item?.achievements_count ? <Image {...css.image} src={LevelThreeImage} /> : <Text textAlign={'center'} {...css.names}>{item?.achievements_count}</Text>
-                            } */}
                         </SimpleGrid>
                     ))
                 }
             </Box>
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={(page) => setCurrentPage(page)}
+            />
         </Box>
     );
 }
@@ -178,6 +225,13 @@ const css = {
     },
     card: {
         borderRadius: "8px",
+        padding: "0 24px",
+        justifyContent: "space-between",
+        alignItems: "center",
+        height: "70px"
+    },
+    cards: {
+        borderRadius: "8px",
         background: "#EDF2FF",
         padding: "0 24px",
         justifyContent: "space-between",
@@ -187,11 +241,9 @@ const css = {
     image: {
         width: "50px",
         textAlign: "center",
-        // margin: "0 auto"
     },
     icon: {
         width: "60px",
         textAlign: "center",
-        // margin: "0 auto"
     },
 }

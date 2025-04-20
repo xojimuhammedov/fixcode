@@ -111,6 +111,62 @@ a:hover {
     gap: 10px;
 }
 
+
+
+.yellow {
+    animation: glow 2s infinite;
+}
+
+.gray {
+    animation: glowGray 2s infinite;
+}
+
+.blue {
+    animation: glowBlue 2s infinite;
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px gold;
+    }
+
+    50% {
+        box-shadow: 0 0 20px gold;
+    }
+
+    100% {
+        box-shadow: 0 0 5px gold;
+    }
+}
+
+@keyframes glowGray {
+    0% {
+        box-shadow: 0 0 5px #9e9eb3;
+    }
+
+    50% {
+        box-shadow: 0 0 20px #9e9eb3;
+    }
+
+    100% {
+        box-shadow: 0 0 5px #9e9eb3;
+    }
+}
+
+@keyframes glowBlue {
+    0% {
+        box-shadow: 0 0 5px #F6B191;
+    }
+
+    50% {
+        box-shadow: 0 0 20px #F6B191;
+    }
+
+    100% {
+        box-shadow: 0 0 5px #F6B191;
+    }
+}
+
 .css-24r72f[aria-selected=true] svg path {
     stroke: white;
 }
