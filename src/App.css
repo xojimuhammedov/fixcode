@@ -95,7 +95,7 @@ a:hover {
 }
 
 .active {
-    border-radius: 8px 0px 0px 8px;
+    border-radius: 8px;
     background: #0153D5;
     color: #FFF !important;
     text-align: center;

@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useGetAllQuery from '../../../hooks/useGetAllQuery';
 
+
+
 const LeftComponent = () => {
     const { id } = useParams()
 

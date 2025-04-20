@@ -1,11 +1,16 @@
-import { Box, Flex, Image, SimpleGrid, Text } from '@chakra-ui/react';
+import { border, Box, Flex, Heading, Image, SimpleGrid, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import useGetAllQuery from '../../hooks/useGetAllQuery';
 
-import LevelOneImage from '../../assets/01.png'
-import LevelTwoImage from '../../assets/02.png'
-import LevelThreeImage from '../../assets/03.png'
+import LevelOneImage from '../../assets/05.png'
+import LevelTwoImage from '../../assets/06.png'
+import LevelThreeImage from '../../assets/07.png'
+
+import BadgeOne from '../../assets/badge-01.png'
+import BadgeTwo from '../../assets/badge-02.png'
+import BadgeThree from '../../assets/badge-03.png'
+import Podium from './components/Podium';
 
 const Leaderboard = () => {
     const [filter, setFilter] = useState({
@@ -39,6 +44,7 @@ const Leaderboard = () => {
     return (
         <Box className='container'>
             <Navbar />
+            <Podium data={data} />
             <Flex {...css.item}>
                 <Text ml={`${filter?.sort_by_xp ? '0' : "12px"}`} className={`${filter?.sort_by_xp ? 'active' : ""}`} onClick={() => handleSortClick("sort_by_xp")} {...css.name}>Experience</Text>
                 <Text className={`${filter?.sort_by_badges ? 'active' : ""}`} onClick={() => handleSortClick("sort_by_badges")} {...css.name}>Badges</Text>
@@ -47,21 +53,23 @@ const Leaderboard = () => {
             </Flex>
             <SimpleGrid columns={6} {...css.card}>
                 <Text w={'50px'} {...css.names}>Place</Text>
-                <Text w={'150px'} {...css.names}>Username</Text>
-                <Text w={'150px'}  {...css.names}>Experience</Text>
+                <Text {...css.names}>Username</Text>
+                <Text {...css.names}>Experience</Text>
                 <Text {...css.names}>Badges</Text>
-                <Text w={'240px'} {...css.names}>Problems Solved</Text>
+                <Text ml={'-36px'} {...css.names}>Problems Solved</Text>
                 <Text textAlign={'center'} {...css.names}>Achievements</Text>
             </SimpleGrid>
             <Box mt={'24px'}>
                 {
                     data?.data?.map((item, index) => (
-                        <SimpleGrid gap={'8px'} columns={6} m={'20px 0'} key={index} {...css.card}>
-                            <Text {...css.names}>{item?.rank}</Text>
-                            <Text  {...css.names}>{item?.username}</Text>
-                            <Text   {...css.names}>{item?.xp} XP</Text>
+                        <SimpleGrid border={`2px solid ${item?.rank === 1 ? "#ffd700" : item?.rank === 2 ? "#9e9eb3" : item?.rank === 3 ? "#F6B191" : "#EDF2FF"}`} gap={'8px'} columns={6} m={'20px 0'} key={index} {...css.card}>
+                            {
+                                item?.rank === 1 ? <Image {...css.icon} src={BadgeOne} /> : item?.rank === 2 ? <Image {...css.icon} src={BadgeTwo} /> : item?.rank === 3 ? <Image {...css.icon} src={BadgeThree} /> : <Text ml={'24px'} {...css.names}>{item?.rank}</Text>
+                            }
+                            <Heading ml={'-36px'} {...css.subnames}>{item?.username}</Heading>
+                            <Text  {...css.names}>{item?.xp} XP</Text>
                             <Text {...css.names}>{item?.badges_count}</Text>
-                            <Text w={'240px'} {...css.names}>
+                            <Text ml={'-40px'} w={'240px'} {...css.names}>
                                 <Flex gap={'6px'}>
                                     <Box
                                         borderRadius="6px"
@@ -89,10 +97,32 @@ const Leaderboard = () => {
                                     >Hard: {item?.hard_solved}</Box>
                                 </Flex>
                             </Text>
-                            {
+                            <Box ml={'48px'}>
+                                {
+                                    item?.achievements_count === 1 ? <Flex align={'center'}>
+                                        <Heading pr={'16px'} fontWeight={'bold'} {...css.names}>{item?.achievements_count}</Heading>
+                                        <Image {...css.image} src={LevelOneImage} />
+                                    </Flex> : item?.achievements_count === 2 ? <Flex align={'center'}>
+                                        <Heading pr={'16px'} fontWeight={'bold'} {...css.names}>{item?.achievements_count}</Heading>
+                                        <Image {...css.image} src={LevelOneImage} />
+                                        <Image {...css.image} src={LevelTwoImage} />
+                                    </Flex> : item?.achievements_count === 3 ?
+                                        <Flex align={'center'}>
+                                            <Heading pr={'16px'} fontWeight={'bold'} {...css.names}>{item?.achievements_count}</Heading>
+                                            <Image {...css.image} src={LevelOneImage} />
+                                            <Image {...css.image} src={LevelTwoImage} />
+                                            <Image {...css.image} src={LevelThreeImage} />
+                                        </Flex> : item?.achievements_count > 3 ? <Flex align={'center'}>
+                                            <Heading pr={'16px'} fontWeight={'bold'} {...css.names}>{item?.achievements_count}</Heading>
+                                            <Image {...css.image} src={LevelOneImage} />
+                                            <Image {...css.image} src={LevelTwoImage} />
+                                            <Image {...css.image} src={LevelThreeImage} />
+                                        </Flex> : <Heading fontWeight={'bold'} {...css.names}>{item?.achievements_count}</Heading>
+                                }
+                            </Box>
+                            {/* {
                                 item?.achievements_count === 1 ? <Image {...css.image} src={LevelOneImage} /> : item?.achievements_count === 2 ? <Image {...css.image} src={LevelTwoImage} /> : item?.achievements_count ? <Image {...css.image} src={LevelThreeImage} /> : <Text textAlign={'center'} {...css.names}>{item?.achievements_count}</Text>
-                            }
-                            {/* <Text textAlign={'center'} {...css.names}>{item?.achievements_count}</Text> */}
+                            } */}
                         </SimpleGrid>
                     ))
                 }
@@ -112,7 +142,7 @@ const css = {
         alignItems: "center",
         justifyContent: "space-between",
         padding: "14px 0",
-        margin: "120px auto"
+        margin: "60px auto"
     },
     name: {
         color: "#94999F",
@@ -127,17 +157,41 @@ const css = {
         fontWeight: "500",
         lineHeight: "20px",
     },
+    achievement: {
+        color: "#152B46",
+        fontSize: "20px",
+        fontWeight: "500",
+        lineHeight: "20px",
+    },
+    subnames: {
+        color: "#152B46",
+        fontSize: "16px",
+        fontWeight: "500",
+        lineHeight: "20px",
+        padding: "8px 12px",
+        borderRadius: "12px",
+        width: "90%",
+        textAlign: "center",
+        backgroundColor: "#4080e6",
+        color: "#fff",
+        cursor: "pointer"
+    },
     card: {
         borderRadius: "8px",
         background: "#EDF2FF",
         padding: "0 24px",
         justifyContent: "space-between",
         alignItems: "center",
-        height:"70px"
+        height: "70px"
     },
     image: {
         width: "50px",
         textAlign: "center",
-        margin: "0 auto"
-    }
+        // margin: "0 auto"
+    },
+    icon: {
+        width: "60px",
+        textAlign: "center",
+        // margin: "0 auto"
+    },
 }
