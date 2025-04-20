@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 
 import UzbFlafImage from '../../../assets/uzb.png'
+import KingIcon from '../../../assets/king.png'
 
 export default function IsometricLeaderboard({ data }) {
     const [loaded, setLoaded] = useState(false);
@@ -39,11 +40,6 @@ export default function IsometricLeaderboard({ data }) {
         leaders?.find((l) => l?.position === 3),
     ];
 
-    const flagEmojis = {
-        UZ: "🇺🇿",
-        FR: "🇫🇷",
-        CA: "🇨🇦",
-    };
 
     const tabLabels = {
         all: "All Problems",
@@ -63,6 +59,7 @@ export default function IsometricLeaderboard({ data }) {
         2: 24,
         3: 20,
     };
+
 
     return (
         <Box minH="40vh" p={8}>
@@ -135,12 +132,13 @@ export default function IsometricLeaderboard({ data }) {
                                         <Text
                                             fontSize="2xl"
                                             position="absolute"
-                                            top="-8"
-                                            left="38%"
+                                            top="-55%"
+                                            left="15%"
                                             transform="translateX(-38%)"
                                             animation="bounce 2s infinite"
+                                           
                                         >
-                                            👑
+                                            <Image w={'70px'} src={KingIcon} />
                                         </Text>
                                     )}
                                 </Box>
