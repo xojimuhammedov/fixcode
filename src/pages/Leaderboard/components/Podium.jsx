@@ -8,6 +8,8 @@ import {
     VStack,
 } from "@chakra-ui/react";
 
+import UzbFlafImage from '../../../assets/uzb.png'
+
 export default function IsometricLeaderboard({ data }) {
     const [loaded, setLoaded] = useState(false);
     const [activeTab, setActiveTab] = useState("all");
@@ -30,50 +32,6 @@ export default function IsometricLeaderboard({ data }) {
             database: 439,
         },
     }));
-
-
-
-    // const leaders = [
-    //     {
-    //         position: 1,
-    //         name: "Alex",
-    //         username: "@alexcoder",
-    //         problems: 2569,
-    //         country: "PT",
-    //         avatar: "/api/placeholder/100/100",
-    // stats: {
-    //     algorithm: 1240,
-    //     dataStructure: 890,
-    //     database: 439,
-    // },
-    //     },
-    //     {
-    //         position: 2,
-    //         name: "Sophie",
-    //         username: "@sophdev",
-    //         problems: 1449,
-    //         country: "FR",
-    //         avatar: "/api/placeholder/100/100",
-    //         stats: {
-    //             algorithm: 720,
-    //             dataStructure: 509,
-    //             database: 220,
-    //         },
-    //     },
-    //     {
-    //         position: 3,
-    //         name: "Ethan",
-    //         username: "@ethancodes",
-    //         problems: 1054,
-    //         country: "CA",
-    //         avatar: "/api/placeholder/100/100",
-    //         stats: {
-    //             algorithm: 502,
-    //             dataStructure: 401,
-    //             database: 151,
-    //         },
-    //     },
-    // ];
 
     const ordered = [
         leaders?.find((l) => l?.position === 2),
@@ -190,7 +148,7 @@ export default function IsometricLeaderboard({ data }) {
                                 {/* Info */}
                                 <VStack spacing={1}>
                                     <HStack>
-                                        <Text fontSize="xl">{flagEmojis[leader?.country]}</Text>
+                                        <Image w={'25px'} src={UzbFlafImage} />
                                         <Text fontWeight="bold" color="#000">
                                             {leader?.name}
                                         </Text>
