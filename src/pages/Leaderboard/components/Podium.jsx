@@ -178,8 +178,8 @@ export default function IsometricLeaderboard({ data }) {
                                             fontSize="2xl"
                                             position="absolute"
                                             top="-8"
-                                            left="40%"
-                                            transform="translateX(-45%)"
+                                            left="38%"
+                                            transform="translateX(-38%)"
                                             animation="bounce 2s infinite"
                                         >
                                             👑
