@@ -22,7 +22,7 @@ export default function IsometricLeaderboard({ data }) {
         name: item?.fullname,
         username: item?.username,
         problems: item.problem_score,
-        country: "PT",
+        country: "UZ",
         avatar: item.avatar || `https://fixcode-fastapi-636bb.ondigitalocean.app/api/${item?.profile_picture}`,
         stats: {
             algorithm: 1240,
@@ -82,7 +82,7 @@ export default function IsometricLeaderboard({ data }) {
     ];
 
     const flagEmojis = {
-        PT: "🇵🇹",
+        UZ: "🇺🇿",
         FR: "🇫🇷",
         CA: "🇨🇦",
     };
