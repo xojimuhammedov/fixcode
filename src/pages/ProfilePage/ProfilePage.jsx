@@ -6,6 +6,7 @@ import Analitcs from './components/Analitics';
 import Badge from './components/Badge';
 import GitHubCalendar from 'react-github-calendar';
 import BottomComponents from './components/BottomComponents';
+import AdvancedAnalyticsChakra from './components/AdvancedAnalyticsDesigns';
 
 const ProfilePage = () => {
     return (
@@ -13,14 +14,15 @@ const ProfilePage = () => {
             <Navbar />
             <Flex gap={'20px'} mt={'30px'}>
                 <Main />
-                <Flex gap={'20px'} flexDirection={'column'} w={'calc(100% - 406px)'}>
+                <Flex gap={'20px'} flexDirection={'column'} w={'calc(100% - 376px)'}>
                     <Flex gap={'20px'}>
                         <Analitcs />
                         <Badge />
                     </Flex>
+                    <AdvancedAnalyticsChakra />
                     <Box {...css.item}>
                         <Heading {...css.name}>0 submissions in the past one year</Heading>
-                        <GitHubCalendar year={2023} style={{ width: "100%", marginTop:"24px" }} colorScheme='light' username="Muhammadislom-Dev" />
+                        <GitHubCalendar year={2023} style={{ width: "100%", marginTop: "24px" }} colorScheme='light' username="Muhammadislom-Dev" />
                     </Box>
                     <BottomComponents />
                 </Flex>
@@ -42,6 +44,6 @@ const css = {
     name: {
         fontSize: "17px",
         fontWeight: "500",
-        marginBottom:"12px"
+        marginBottom: "12px"
     }
 }

@@ -111,6 +111,9 @@ a:hover {
     gap: 10px;
 }
 
+.profile-piechart tspan {
+    font-size: 15px;
+}
 
 
 .yellow {

@@ -22,7 +22,7 @@ export default RegisterPage;
 
 const css = {
     box: {
-        height: "100vh",
+        height: "105vh",
         background: "white"
     }
 }

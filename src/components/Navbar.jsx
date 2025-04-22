@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
 import React from 'react';
 import NavbarIcon from '../assets/NavbarIcon';
 import ProfileIcon from '../assets/ProfileIcon';
@@ -6,6 +6,11 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const navigate = useNavigate()
+
+    const handleDelete = () => {
+        localStorage.removeItem("userToken")
+        navigate("/")
+    }
     return (
         <Box {...css.navbar}>
             <Flex align={'center'} justifyContent={'space-between'}>
@@ -26,9 +31,18 @@ const Navbar = () => {
                         <Text {...css.link}>History</Text>
                     </Link>
                 </Flex>
-                <Box onClick={() => navigate("/profile")} {...css.item}>
-                    <ProfileIcon />
-                </Box>
+                <Menu isLazy>
+                    <MenuButton>
+                        <Box {...css.item}>
+                            <ProfileIcon />
+                        </Box>
+                    </MenuButton>
+                    <MenuList>
+                        <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
+                        <MenuItem onClick={handleDelete}>LogOut</MenuItem>
+                    </MenuList>
+                </Menu>
+
             </Flex>
         </Box>
     );

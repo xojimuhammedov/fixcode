@@ -22,13 +22,15 @@ const NavbarMenu = () => {
                         <Link href='#' {...css.link}>Developer </Link>
                     </Flex>
                     {
-                        userToken ? <Box onClick={() => navigate("/profile")} {...css.item}>
-                            <ProfileIcon />
-                        </Box> : <Alink to={'/login'}>
-                            <Text {...css.button}>
-                                <Image ml={'6px'} src={UserIcon} />
-                                Sign in</Text>
-                        </Alink>
+                        userToken ?
+                            <Box onClick={() => navigate("/profile")} {...css.item}>
+                                <ProfileIcon />
+                            </Box>
+                            : <Alink to={'/login'}>
+                                <Text {...css.button}>
+                                    <Image ml={'6px'} src={UserIcon} />
+                                    Sign in</Text>
+                            </Alink>
                     }
                 </Flex>
             </Box>

@@ -56,7 +56,7 @@ const css = {
     main: {
         borderRadius: "15px",
         background: "#EDF2FF",
-        width: "406px",
+        width: "376px",
         padding: "36px 20px 239.904px 20px",
     },
     text: {

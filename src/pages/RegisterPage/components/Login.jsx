@@ -23,7 +23,7 @@ const Login = ({ setLogin }) => {
             <Heading {...css.title}>Log in</Heading>
             <form onSubmit={handleSubmit(onSubmit)} className='register-form' action="">
                 <label htmlFor="name">
-                    Mail
+                    E-mail
                     <input {...register("email")} type="text" placeholder='Enter your gmail ' className='form-input' />
                 </label>
                 <label htmlFor="name">
@@ -32,7 +32,7 @@ const Login = ({ setLogin }) => {
                 </label>
                 <Button type='submit' {...css.submit}>Log in</Button>
             </form>
-            <p className='form-text'>If you don’t account ? <span onClick={() => setLogin("register")}>Sign in</span> </p>
+            <p className='form-text'>If you don’t account ? <span onClick={() => setLogin("register")}>Sign up</span> </p>
         </Box>
     );
 }

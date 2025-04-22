@@ -31,7 +31,7 @@ const Register = ({ setLogin }) => {
                     <input {...register("password")} type="password" placeholder='Enter your password' className='form-input' />
                 </label>
                 <label htmlFor="email">
-                    Mail
+                    E-mail
                     <input {...register("email")} type="text" placeholder='Enter your gmail ' className='form-input' />
                 </label>
                 <Button type='submit' {...css.submit}>Create account</Button>
