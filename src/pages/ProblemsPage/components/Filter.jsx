@@ -83,7 +83,7 @@ const Filter = () => {
                         <MenuItem onClick={() => setStatus("easy")} fontSize={'12px'} background="#EDF2FF">
                             <Box
                                 borderRadius="100px"
-                                background="#52A28A"
+                                background="#4CAF50"
                                 color={'#fff'}
                                 w={'100%'}
                                 textAlign={'center'}
@@ -92,7 +92,7 @@ const Filter = () => {
                         <MenuItem onClick={() => setStatus("medium")} fontSize={'14px'} background="#EDF2FF">
                             <Box
                                 borderRadius="100px"
-                                background="#FFBF1E"
+                                background="#FFC107"
                                 color={'#fff'}
                                 w={'100%'}
                                 textAlign={'center'}
@@ -101,7 +101,7 @@ const Filter = () => {
                         <MenuItem onClick={() => setStatus("hard")} fontSize={'12px'} background="#EDF2FF">
                             <Box
                                 borderRadius="100px"
-                                background="#FF6063"
+                                background="#F44336"
                                 color={'#fff'}
                                 w={'100%'}
                                 textAlign={'center'}
@@ -159,7 +159,7 @@ const Filter = () => {
                                             <SolutionIcon />
                                         </Td>
                                         <Td>{item?.acceptance_rate ?? "--"}</Td>
-                                        <Td bg={`${item?.difficulty === "medium" ? "#358168" : item?.difficulty === 'hard' ? "#FFBF1E" : "#FF6063"}`} {...css.status} >{item?.difficulty}</Td>
+                                        <Td bg={`${item?.difficulty === "medium" ? "#FFC107" : item?.difficulty === 'hard' ? "#F44336" : "#4CAF50"}`} {...css.status} >{item?.difficulty}</Td>
                                         <Td>
                                             <LockIcon />
                                         </Td>
