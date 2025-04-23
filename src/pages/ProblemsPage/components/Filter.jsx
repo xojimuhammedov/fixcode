@@ -13,6 +13,9 @@ import {
     MenuItem,
     Input,
     Heading,
+    HStack,
+    Button,
+    Badge,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import SolutionIcon from '../../../assets/SolutionIcon';
@@ -22,7 +25,7 @@ import useGetAllQuery from '../../../hooks/useGetAllQuery';
 import RightIcon from '../../../assets/RightIcon';
 import { useNavigate } from 'react-router-dom';
 
-const Filter = () => {
+const Filter = ({ numberData }) => {
     const navigate = useNavigate()
     const [status, setStatus] = useState(null)
     const [search, setSearch] = useState(null)
@@ -42,15 +45,62 @@ const Filter = () => {
         url: "/api/v1/problems/tags/all"
     })
 
+    console.log(numberData)
+
     return (
         <Box p={'48px 0'}>
-            <SimpleGrid gap={'24px'} columns={5}>
+            <Flex alignItems="center" overflow="auto" py={2}>
+                <HStack gap={'18px'} spacing={2}>
+                    {tagsData?.data?.map((topic, index) => (
+                        <Box key={index} position="relative">
+                            <Button
+                                borderRadius="full"
+                                bg={"white"}
+                                color={"black"}
+                                border="1px solid"
+                                // borderColor={topic.active ? "blue.500" : "gray.300"}
+                                size="md"
+                                px={6}
+                                py={5}
+                                fontWeight="medium"
+                                _hover={{ bg: "#0153D5", color: "#fff" }}
+                            >
+                                {topic.name}
+                            </Button>
+                            <Badge
+                                position="absolute"
+                                top="-8px"
+                                right="-10px"
+                                borderRadius="full"
+                                bg="#D4E0FF"
+                                px={4}
+                                py={1}
+                                fontSize="xs"
+                                color="black"
+                            >
+                                {numberData?.popular_tags?.[topic?.name]}
+                            </Badge>
+                        </Box>
+                    ))}
+                </HStack>
+                {/* <IconButton
+                    aria-label="More options"
+                    icon={<ChevronDownIcon />}
+                    borderRadius="full"
+                    variant="outline"
+                    ml={2}
+                    borderColor="gray.300"
+                /> */}
+            </Flex>
+            {/* <SimpleGrid gap={'24px'} columns={5}>
                 {
                     tagsData?.data?.map((item, index) => (
-                        <Box key={index} {...css.item}>{item.name}</Box>
+                        <Box 
+                        display={'inline-block'}
+                        key={index} {...css.item}>{item.name}</Box>
                     ))
                 }
-            </SimpleGrid>
+            </SimpleGrid> */}
             <Flex gap={'24px'} align={'center'} mt={'24px'}>
                 <Menu isLazy>
                     <MenuButton h={'37px'} display={'flex'} w={'120px'} {...css.button}>
@@ -152,7 +202,7 @@ const Filter = () => {
                                 data?.data?.items?.map((item, index) => (
                                     <Tr cursor={'pointer'} onClick={() => navigate(`/problems/${item?.id}`)} key={index}>
                                         <Td>
-                                            {item?.is_solved ? <CheckIcon /> : ""}
+                                            {item?.is_solved ? <CheckIcon /> : item?.attempts === 0 ? "" : item?.attempts}
                                         </Td>
                                         <Td>{item?.title}</Td>
                                         <Td>
@@ -239,6 +289,6 @@ const css = {
     input: {
         borderRadius: "100px",
         border: "0.6px solid rgba(0, 0, 0, 0.60)",
-        width: "400px"
+        width: "450px"
     }
 }

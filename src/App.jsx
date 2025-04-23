@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     if (!userToken) {
-      navigate("/login")
+      navigate("/")
     }
   }, [userToken])
 

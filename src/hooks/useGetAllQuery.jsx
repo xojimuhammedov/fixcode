@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
 import { request } from "../services/request";
-import { toast } from "react-toastify";
 
 const useGetAllQuery = ({
     url = "/",
@@ -17,7 +16,6 @@ const useGetAllQuery = ({
             }),
         enabled,
         onSuccess: (data) => {
-            // console.log(data)
         },
         onError: (err) => {
             console.log(err)

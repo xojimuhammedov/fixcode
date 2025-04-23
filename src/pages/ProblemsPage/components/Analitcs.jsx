@@ -2,43 +2,28 @@ import { Box, Flex, Heading } from '@chakra-ui/react';
 import React from 'react';
 import useGetAllQuery from '../../../hooks/useGetAllQuery';
 
-const Analitcs = () => {
-    const { data: userData } = useGetAllQuery({
-        key: "userData",
-        url: "/users/me"
-    })
-    const { data } = useGetAllQuery({
-        key: "getAllHistoryStatistic",
-        url: `/api/v1/submissions/statistics/user/${userData?.data?.id}`,
-        params: {}
-    })
-
-    // const { data: statisticData } = useGetAllQuery({
-    //     key: "getAllProblemsStatisticUser",
-    //     url: `/api/v1/problems/user/${userData?.data?.id}`,
-    //     params: {}
-    // })
+const Analitcs = ({ data }) => {
     return (
         <Box p={'48px 0'}>
             <Box {...css.item}>
                 <Heading {...css.title}>Analitics</Heading>
                 <Flex mt={'36px'} justifyContent={'space-between'}>
                     <Flex flexDirection={'column'}>
-                        <Box {...css.list}>{data?.data?.total_submissions}</Box>
+                        <Box {...css.list}>{data?.data?.total_problems}</Box>
                         <Box bg={'#52A28A'} {...css.lists}>{data?.data?.
-                            difficulty_distribution?.easy}</Box>
+                            by_difficulty?.easy}</Box>
                         <Heading color={'#52A28A'} {...css.name}>Easy</Heading>
                     </Flex>
                     <Flex flexDirection={'column'}>
-                        <Box {...css.list}>{data?.data?.total_submissions}</Box>
+                        <Box {...css.list}>{data?.data?.total_problems}</Box>
                         <Box bg={'#FFBF1E'} {...css.lists}>{data?.data?.
-                            difficulty_distribution?.medium}</Box>
+                            by_difficulty?.medium}</Box>
                         <Heading color={'#FFBF1E'} {...css.name}>Medium</Heading>
                     </Flex>
                     <Flex flexDirection={'column'}>
-                        <Box {...css.list}>{data?.data?.total_submissions}</Box>
+                        <Box {...css.list}>{data?.data?.total_problems}</Box>
                         <Box bg={'#FF6063'} {...css.lists}>{data?.data?.
-                            difficulty_distribution?.hard}</Box>
+                            by_difficulty?.hard}</Box>
                         <Heading color={'#FF6063'} {...css.name}>Hard</Heading>
                     </Flex>
                 </Flex>
