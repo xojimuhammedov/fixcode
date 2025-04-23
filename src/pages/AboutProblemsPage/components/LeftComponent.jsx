@@ -24,7 +24,11 @@ const LeftComponent = () => {
                     <TabPanel>
                         <Heading {...css.title}>{data?.data?.title}</Heading>
                         <Text {...css.text}>{data?.data?.description}</Text>
-
+                        <Text {...css.text}
+                            dangerouslySetInnerHTML={{
+                                __html: data?.data?.solution_template
+                            }}
+                        />
                         <Flex mt={'24px'} gap={'12px'}>
                             {
                                 data?.data?.tags?.map((item) => (

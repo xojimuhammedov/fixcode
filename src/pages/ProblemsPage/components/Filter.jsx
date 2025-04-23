@@ -152,7 +152,7 @@ const Filter = () => {
                                 data?.data?.items?.map((item, index) => (
                                     <Tr cursor={'pointer'} onClick={() => navigate(`/problems/${item?.id}`)} key={index}>
                                         <Td>
-                                            {item?.is_active ? <CheckIcon /> : ""}
+                                            {item?.is_solved ? <CheckIcon /> : ""}
                                         </Td>
                                         <Td>{item?.title}</Td>
                                         <Td>

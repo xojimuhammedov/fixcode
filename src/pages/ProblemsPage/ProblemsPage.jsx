@@ -9,10 +9,10 @@ const ProblemsPage = () => {
         <Box className='container'>
             <Navbar />
             <Flex gap={'60px'}>
-                <Box w={'64%'}>
+                <Box w={'68%'}>
                     <Filter />
                 </Box>
-                <Box w={'36%'}>
+                <Box w={'32%'}>
                     <Analitcs />
                 </Box>
             </Flex>
