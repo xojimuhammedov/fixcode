@@ -84,12 +84,12 @@ const Filter = ({ numberData }) => {
         return Math.ceil(data?.data?.items?.length / ITEMS_PER_PAGE);
     }, [data]);
 
-
     return (
         <Box p={'48px 0'}>
             <Flex borderBottom={'1px solid rgba(190, 190, 190, 0.40)'} alignItems="center" overflow="auto" p={'16px 0'}>
-                <VStack spacing={3} align={'center'}>
-                    <HStack align={'center'} flexWrap="wrap" gap={'18px'} spacing={2}>
+                <VStack align={'center'}>
+                    <HStack
+                        width="100%" flexWrap="wrap" gap={'18px'}>
                         {visibleTags?.map((topic, index) => {
                             const isSelected = selectedTags.includes(topic.name)
                             return (
@@ -149,7 +149,7 @@ const Filter = ({ numberData }) => {
                                 overflow="hidden"
                                 width="100%"
                             >
-                                <HStack gap={'18px'} spacing={2} flexWrap="wrap" mt={4}>
+                                <HStack gap={'18px'} flexWrap="wrap" mt={4}>
                                     {hiddenTags.map((topic, index) => {
                                         const isSelected = selectedTags.includes(topic.name);
                                         return (
@@ -227,8 +227,12 @@ const Filter = ({ numberData }) => {
                         w={'100px'}>
                         <MenuItem onClick={() => setStatus(null)} fontSize={'14px'} background="#EDF2FF">
                             <Box
+                                color={'#fff'}
                                 w={'100%'}
                                 textAlign={'center'}
+                                background={'#0153D5'}
+
+                                borderRadius="100px"
                             >All Lists</Box>
                         </MenuItem>
                         <MenuItem onClick={() => setStatus("easy")} fontSize={'14px'} background="#EDF2FF">
@@ -271,14 +275,14 @@ const Filter = ({ numberData }) => {
                         background="#EDF2FF"
                         boxShadow="0px 3px 8px 0px rgba(0, 0, 0, 0.24)"
                         minW={'120px'}
-                        w={'100px'}> doesn't
-                        <MenuItem onClick={() => setSituation(null)} fontSize={'14px'} background="#EDF2FF">
+                        w={'100px'}>
+                        <MenuItem borderBottom={'0.5px solid #403b3b'} onClick={() => setSituation(null)} fontSize={'14px'} background="#EDF2FF">
                             All Lists
                         </MenuItem>
-                        <MenuItem onClick={() => setSituation("unattempted")} fontSize={'14px'} background="#EDF2FF">
+                        <MenuItem borderBottom={'1px solid #403b3b'} onClick={() => setSituation("unattempted")} fontSize={'14px'} background="#EDF2FF">
                             UnAttempted
                         </MenuItem>
-                        <MenuItem onClick={() => setSituation("solved")} fontSize={'14px'} background="#EDF2FF">
+                        <MenuItem borderBottom={'1px solid #403b3b'} onClick={() => setSituation("solved")} fontSize={'14px'} background="#EDF2FF">
                             Solved
                         </MenuItem>
                         <MenuItem onClick={() => setSituation("attempted")} fontSize={'14px'} background="#EDF2FF">
@@ -286,7 +290,7 @@ const Filter = ({ numberData }) => {
                         </MenuItem>
                     </MenuList>
                 </Menu>
-                <Input onChange={(evt) => setSearch(evt.target.value)} {...css.input} placeholder='Seach...' />
+                <Input onChange={(evt) => setSearch(evt.target.value)} {...css.input} placeholder='Search...' />
             </Flex>
             <TableContainer overflow={'hidden'} mt={'40px'}>
                 <Table variant='simple'>
@@ -348,6 +352,7 @@ const Filter = ({ numberData }) => {
 }
 
 export default Filter;
+
 
 const css = {
     item: {
