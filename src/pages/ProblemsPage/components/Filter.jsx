@@ -208,9 +208,9 @@ const Filter = ({ numberData }) => {
                         background="#EDF2FF"
                         boxShadow="0px 3px 8px 0px rgba(0, 0, 0, 0.24)"
                         w={'229px'}>
-                        <MenuItem fontSize={'12px'} background="#EDF2FF">LeetCode Curated Algorithms</MenuItem>
-                        <MenuItem fontSize={'12px'} background="#EDF2FF">LeetCode Curated Algorithms</MenuItem>
-                        <MenuItem fontSize={'12px'} background="#EDF2FF">LeetCode Curated Algorithms</MenuItem>
+                        <MenuItem fontSize={'12px'} background="#EDF2FF">FixCode Beginner Challenges</MenuItem>
+                        <MenuItem fontSize={'12px'} background="#EDF2FF">FixCode Core Algorithms</MenuItem>
+                        <MenuItem fontSize={'12px'} background="#EDF2FF">FixCode Advanced Mastery</MenuItem>
                     </MenuList>
                 </Menu>
                 <Menu isLazy>
@@ -328,7 +328,7 @@ const Filter = ({ numberData }) => {
                                             <Flex align={'center'} justify={'center'}> <SolutionIcon /></Flex>
                                         </Td>
                                         <Td>
-                                            <Flex align={'center'} justify={'center'}>{item?.acceptance_rate ?? "--"}</Flex>
+                                            <Flex align={'center'} justify={'center'}>{`${item?.acceptance_rate}%` ?? "--"}</Flex>
                                         </Td>
                                         <Td bg={`${item?.difficulty === "medium" ? "#FFC107" : item?.difficulty === 'hard' ? "#F44336" : "#4CAF50"}`} {...css.status} >{item?.difficulty}</Td>
                                         <Td>

@@ -12,6 +12,8 @@ const ProblemsPage = () => {
         url: `/api/v1/problems/statistics/overview`,
         params: {}
     })
+
+    // submissions/statistics/user/1000009
     return (
         <Box className='container'>
             <Navbar />
