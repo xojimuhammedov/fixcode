@@ -15,7 +15,6 @@ import Section from './components/Section'
 import HistoryPage from './pages/HistoryPage/HistoryPage'
 import AboutProblemsPage from './pages/AboutProblemsPage/AboutProblemsPage'
 import Partner from './components/Partner'
-import Programming from './components/Programming'
 import Technology from './components/Technology'
 import Coding from './components/Coding'
 
@@ -39,7 +38,6 @@ function App() {
               <Header />
             </div>
             <Partner />
-            {/* <Programming /> */}
             <Technology />
             <Coding />
             <Section />

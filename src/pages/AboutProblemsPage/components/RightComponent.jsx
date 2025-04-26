@@ -1,10 +1,21 @@
 import { Box, Flex, Heading } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import Editor from '@monaco-editor/react';
+import { useParams } from 'react-router-dom';
+import useGetAllQuery from '../../../hooks/useGetAllQuery';
 
 
 const RightComponent = () => {
     const [codeValue, setCodeValue] = useState("")
+    const { id } = useParams()
+    // console.log(id)
+
+    const { data, isLoading } = useGetAllQuery({
+        key: "getAllProblemsTestCases",
+        url: `/api/v1/problems/${id}/test-cases`,
+        params: {}
+    })
+
     return (
         <Flex flexDirection={'column'} gap={'10px'}>
             <Box {...css.item}>

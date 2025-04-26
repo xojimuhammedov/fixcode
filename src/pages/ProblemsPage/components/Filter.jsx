@@ -45,8 +45,6 @@ const Filter = ({ numberData }) => {
         url: "/api/v1/problems/tags/all"
     })
 
-    console.log(numberData)
-
     return (
         <Box p={'48px 0'}>
             <Flex alignItems="center" overflow="auto" py={2}>
@@ -83,24 +81,8 @@ const Filter = ({ numberData }) => {
                         </Box>
                     ))}
                 </HStack>
-                {/* <IconButton
-                    aria-label="More options"
-                    icon={<ChevronDownIcon />}
-                    borderRadius="full"
-                    variant="outline"
-                    ml={2}
-                    borderColor="gray.300"
-                /> */}
             </Flex>
-            {/* <SimpleGrid gap={'24px'} columns={5}>
-                {
-                    tagsData?.data?.map((item, index) => (
-                        <Box 
-                        display={'inline-block'}
-                        key={index} {...css.item}>{item.name}</Box>
-                    ))
-                }
-            </SimpleGrid> */}
+
             <Flex gap={'24px'} align={'center'} mt={'24px'}>
                 <Menu isLazy>
                     <MenuButton h={'37px'} display={'flex'} w={'120px'} {...css.button}>
