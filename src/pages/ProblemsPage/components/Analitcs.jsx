@@ -27,7 +27,6 @@ const Analitcs = ({ data }) => {
                         <Heading color={'#FF6063'} {...css.name}>Hard</Heading>
                     </Flex>
                 </Flex>
-
                 <GaugeChart />
             </Box>
         </Box>

@@ -225,7 +225,13 @@ const Filter = ({ numberData }) => {
                         boxShadow="0px 3px 8px 0px rgba(0, 0, 0, 0.24)"
                         minW={'110px'}
                         w={'100px'}>
-                        <MenuItem onClick={() => setStatus("easy")} fontSize={'12px'} background="#EDF2FF">
+                        <MenuItem onClick={() => setStatus(null)} fontSize={'14px'} background="#EDF2FF">
+                            <Box
+                                w={'100%'}
+                                textAlign={'center'}
+                            >All Lists</Box>
+                        </MenuItem>
+                        <MenuItem onClick={() => setStatus("easy")} fontSize={'14px'} background="#EDF2FF">
                             <Box
                                 borderRadius="100px"
                                 background="#4CAF50"
@@ -243,7 +249,7 @@ const Filter = ({ numberData }) => {
                                 textAlign={'center'}
                             >Medium</Box>
                         </MenuItem>
-                        <MenuItem onClick={() => setStatus("hard")} fontSize={'12px'} background="#EDF2FF">
+                        <MenuItem onClick={() => setStatus("hard")} fontSize={'14px'} background="#EDF2FF">
                             <Box
                                 borderRadius="100px"
                                 background="#F44336"
@@ -265,7 +271,10 @@ const Filter = ({ numberData }) => {
                         background="#EDF2FF"
                         boxShadow="0px 3px 8px 0px rgba(0, 0, 0, 0.24)"
                         minW={'120px'}
-                        w={'100px'}>
+                        w={'100px'}> doesn't
+                        <MenuItem onClick={() => setSituation(null)} fontSize={'14px'} background="#EDF2FF">
+                            All Lists
+                        </MenuItem>
                         <MenuItem onClick={() => setSituation("unattempted")} fontSize={'14px'} background="#EDF2FF">
                             UnAttempted
                         </MenuItem>

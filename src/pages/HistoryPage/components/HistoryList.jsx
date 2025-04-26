@@ -13,6 +13,7 @@ import {
     TableContainer,
     Heading
 } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 
 const HistoryList = () => {
     const { data: userData } = useGetAllQuery({
@@ -29,7 +30,7 @@ const HistoryList = () => {
             <Table variant='simple'>
                 <Thead borderRadius={'6px'} bg={'#F6F8FA'}>
                     <Tr>
-                        <Th {...css.name}>Status</Th>
+                        <Th {...css.name}>Date</Th>
                         <Th {...css.name}>Subject</Th>
                         <Th {...css.name}>Difficulty</Th>
                         <Th {...css.name}>Popularity</Th>
@@ -41,14 +42,14 @@ const HistoryList = () => {
                             data?.data?.items?.map((item, index) => (
                                 <Tr key={index}>
                                     <Td>
-                                        {item?.is_active ? <CheckIcon /> : ""}
+                                        {dayjs(item?.created_at).format('YYYY-MM-DD')}
                                     </Td>
                                     <Td>{item?.title}</Td>
                                     {/* <Td>
                                         <SolutionIcon />
                                     </Td>
                                     <Td>{item?.acceptance_rate ?? "--"}</Td> */}
-                                    <Td bg={`${item?.difficulty === "medium" ? "#358168" : item?.difficulty === 'hard' ? "#FFBF1E" : "#FF6063"}`} {...css.status} >{item?.difficulty}</Td>
+                                    <Td {...css.status} >{item?.status}</Td>
                                     <Td>
                                         <LockIcon />
                                     </Td>
@@ -67,16 +68,8 @@ export default HistoryList;
 
 const css = {
     status: {
-        padding: "4px 12px",
-        borderRadius: "6px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "#fff",
         fontWeight: "400",
         marginTop: "14px",
-        cursor: "pointer",
-        textTransform: 'uppercase'
     },
     name: {
         color: "#565656",

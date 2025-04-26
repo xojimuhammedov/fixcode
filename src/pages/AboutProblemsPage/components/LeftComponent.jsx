@@ -1,18 +1,26 @@
 import { Box, Tab, TabList, TabPanels, Tabs, TabPanel, Heading, Text, Flex, Tag } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import useGetAllQuery from '../../../hooks/useGetAllQuery';
+import { toast } from 'react-toastify';
+import useGetOneQuery from '../../../hooks/useGetOneQuery';
 
 
 
 const LeftComponent = () => {
     const { id } = useParams()
 
-    const { data } = useGetAllQuery({
-        key: "getOneProblems",
+    const { data, error } = useGetOneQuery({
+        key: `getOneProblems${id}`,
         url: `/api/v1/problems/${id}`,
         params: {}
     })
+
+    if (error) {
+        toast.error(`Behruzni errori: ${error}`)
+    }
+
+    console.log(data);
+    
     return (
         <Box {...css.item}>
             <Tabs variant='unstyled'>
@@ -22,16 +30,16 @@ const LeftComponent = () => {
                 </TabList>
                 <TabPanels>
                     <TabPanel>
-                        <Heading {...css.title}>{data?.data?.title}</Heading>
-                        <Text {...css.text}>{data?.data?.description}</Text>
+                        <Heading {...css.title}>{data?.title}</Heading>
+                        <Text {...css.text}>{data?.description}</Text>
                         <Text {...css.text}
                             dangerouslySetInnerHTML={{
-                                __html: data?.data?.solution_template
+                                __html: data?.solution_template
                             }}
                         />
                         <Flex mt={'24px'} gap={'12px'}>
                             {
-                                data?.data?.tags?.map((item) => (
+                                data?.tags?.map((item) => (
                                     <Tag cursor={'pointer'} variant='solid' colorScheme='teal'>{item}</Tag>
                                 ))
                             }
@@ -40,7 +48,7 @@ const LeftComponent = () => {
                     <TabPanel>
                         <Text {...css.text}
                             dangerouslySetInnerHTML={{
-                                __html: data?.data?.solution_template
+                                __html: data?.solution_template
                             }}
                         />
                     </TabPanel>
