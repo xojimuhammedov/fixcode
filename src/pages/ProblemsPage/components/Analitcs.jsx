@@ -1,5 +1,6 @@
 import { Box, Flex, Heading } from '@chakra-ui/react';
 import React from 'react';
+import GaugeChart from './Guechart';
 
 const Analitcs = ({ data }) => {
     return (
@@ -26,6 +27,8 @@ const Analitcs = ({ data }) => {
                         <Heading color={'#FF6063'} {...css.name}>Hard</Heading>
                     </Flex>
                 </Flex>
+
+                <GaugeChart />
             </Box>
         </Box>
     );

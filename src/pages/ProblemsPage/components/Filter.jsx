@@ -1,5 +1,5 @@
 import {
-    Box, SimpleGrid, Table,
+    Box, Table,
     Thead,
     Tbody,
     Tr,
@@ -16,27 +16,42 @@ import {
     HStack,
     Button,
     Badge,
+    IconButton,
+    VStack,
+    Text,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import SolutionIcon from '../../../assets/SolutionIcon';
 import LockIcon from '../../../assets/LockIcon';
 import CheckIcon from '../../../assets/CheckIcon';
 import useGetAllQuery from '../../../hooks/useGetAllQuery';
 import RightIcon from '../../../assets/RightIcon';
 import { useNavigate } from 'react-router-dom';
+import ArrowIcon from '../../../assets/ArrowIcon';
+import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
+import { AnimatePresence, motion } from 'framer-motion';
+import Pagination from '../../../components/Pagination';
+
+const MotionBox = motion(Box);
+const ITEMS_PER_PAGE = 10;
 
 const Filter = ({ numberData }) => {
     const navigate = useNavigate()
     const [status, setStatus] = useState(null)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [selectedTags, setSelectedTags] = useState([]);
     const [search, setSearch] = useState(null)
+    const [showAll, setShowAll] = useState(false);
+    const maxVisibleTags = 7; // Nechta tag birinchi qatorda chiqishi (ikonacha ko'rinishidan oldin)
     const [situation, setSituation] = useState(null)
+    const queryString = selectedTags.map(tag => `tags=${encodeURIComponent(tag)}`).join("&");
     const { data, isLoading } = useGetAllQuery({
-        key: "getAllProblems",
-        url: "/api/v1/problems",
+        key: ["getAllProblems", selectedTags, status, search, situation],
+        url: `/api/v1/problems?${queryString}`,
         params: {
             difficulty: status,
             search: search,
-            status: situation
+            status: situation,
         }
     })
 
@@ -45,42 +60,140 @@ const Filter = ({ numberData }) => {
         url: "/api/v1/problems/tags/all"
     })
 
+    const handleTagClick = (tagName) => {
+        setSelectedTags((prevSelected) =>
+            prevSelected.includes(tagName)
+                ? prevSelected.filter((name) => name !== tagName) // agar oldin bor bo'lsa, olib tashla
+                : [...prevSelected, tagName] // bo'lmasa qo'sh
+        );
+    };
+
+    const visibleTags = tagsData?.data?.slice(0, maxVisibleTags) || [];
+    const hiddenTags = tagsData?.data?.slice(maxVisibleTags) || [];
+
+    const paginatedData = useMemo(() => {
+        if (!data || !Array.isArray(data?.data?.items)) return [];
+
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+        return data?.data?.items?.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    }, [data, currentPage]);
+
+
+    const totalPages = useMemo(() => {
+        if (!data || !Array.isArray(data?.data?.items)) return 0;
+        return Math.ceil(data?.data?.items?.length / ITEMS_PER_PAGE);
+    }, [data]);
+
+
     return (
         <Box p={'48px 0'}>
-            <Flex alignItems="center" overflow="auto" py={2}>
-                <HStack gap={'18px'} spacing={2}>
-                    {tagsData?.data?.map((topic, index) => (
-                        <Box key={index} position="relative">
-                            <Button
+            <Flex borderBottom={'1px solid rgba(190, 190, 190, 0.40)'} alignItems="center" overflow="auto" p={'16px 0'}>
+                <VStack spacing={3} align={'center'}>
+                    <HStack align={'center'} flexWrap="wrap" gap={'18px'} spacing={2}>
+                        {visibleTags?.map((topic, index) => {
+                            const isSelected = selectedTags.includes(topic.name)
+                            return (
+                                <Box key={index} position="relative">
+                                    <Button
+                                        borderRadius="full"
+                                        onClick={() => handleTagClick(topic?.name)}
+                                        bg={isSelected ? "#0153D5" : "white"}
+                                        color={isSelected ? "white" : "black"}
+                                        border="1px solid"
+                                        size="md"
+                                        height={'35px'}
+                                        fontSize={'14px'}
+                                        fontWeight="medium"
+                                        _hover={{ bg: isSelected ? "#0142a0" : "#0153D5", color: "white" }}
+                                    >
+                                        {topic.name}
+                                    </Button>
+                                    <Badge
+                                        position="absolute"
+                                        top="-10px"
+                                        right="-10px"
+                                        borderRadius="full"
+                                        bg="#D4E0FF"
+                                        p={'4px 12px'}
+                                        fontSize="xs"
+                                        color="black"
+                                        fontWeight={'500'}
+                                    >
+                                        {numberData?.popular_tags?.[topic?.name]}
+                                    </Badge>
+                                </Box>
+                            )
+                        })}
+
+                        {hiddenTags.length > 0 && (
+                            <IconButton
+                                aria-label={showAll ? "Yopish" : "Ko'proq"}
+                                icon={showAll ? <ChevronUpIcon /> : <ChevronDownIcon />}
+                                onClick={() => setShowAll(prev => !prev)}
                                 borderRadius="full"
-                                bg={"white"}
-                                color={"black"}
                                 border="1px solid"
-                                // borderColor={topic.active ? "blue.500" : "gray.300"}
-                                size="md"
-                                px={6}
-                                py={5}
-                                fontWeight="medium"
-                                _hover={{ bg: "#0153D5", color: "#fff" }}
-                            >
-                                {topic.name}
-                            </Button>
-                            <Badge
-                                position="absolute"
-                                top="-8px"
-                                right="-10px"
-                                borderRadius="full"
-                                bg="#D4E0FF"
-                                px={4}
-                                py={1}
-                                fontSize="xs"
+                                bg="white"
                                 color="black"
+                                _hover={{ bg: "#0153D5", color: "white" }}
+                                size="md"
+                                flexShrink={0}
+                            />
+                        )}
+                    </HStack>
+                    <AnimatePresence>
+                        {showAll && (
+                            <MotionBox
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                overflow="hidden"
+                                width="100%"
                             >
-                                {numberData?.popular_tags?.[topic?.name]}
-                            </Badge>
-                        </Box>
-                    ))}
-                </HStack>
+                                <HStack gap={'18px'} spacing={2} flexWrap="wrap" mt={4}>
+                                    {hiddenTags.map((topic, index) => {
+                                        const isSelected = selectedTags.includes(topic.name);
+                                        return (
+                                            <Box key={index} position="relative">
+                                                <Button
+                                                    borderRadius="full"
+                                                    onClick={() => handleTagClick(topic?.name)}
+                                                    bg={isSelected ? "#0153D5" : "white"}
+                                                    color={isSelected ? "white" : "black"}
+                                                    border="1px solid"
+                                                    size="md"
+                                                    height={'35px'}
+                                                    fontSize={'14px'}
+                                                    fontWeight="medium"
+                                                    _hover={{ bg: isSelected ? "#0142a0" : "#0153D5", color: "white" }}
+                                                >
+                                                    {topic.name}
+                                                </Button>
+                                                {
+                                                    numberData?.popular_tags?.[topic?.name] && (
+                                                        <Badge
+                                                            position="absolute"
+                                                            top="-10px"
+                                                            right="-10px"
+                                                            borderRadius="full"
+                                                            bg="#D4E0FF"
+                                                            p={'4px 12px'}
+                                                            fontSize="xs"
+                                                            color="black"
+                                                            fontWeight={'500'}
+                                                        >
+                                                            {numberData?.popular_tags?.[topic?.name]}
+                                                        </Badge>
+                                                    )
+                                                }
+
+                                            </Box>
+                                        );
+                                    })}
+                                </HStack>
+                            </MotionBox>
+                        )}
+                    </AnimatePresence>
+                </VStack>
             </Flex>
 
             <Flex gap={'24px'} align={'center'} mt={'24px'}>
@@ -166,7 +279,7 @@ const Filter = ({ numberData }) => {
                 </Menu>
                 <Input onChange={(evt) => setSearch(evt.target.value)} {...css.input} placeholder='Seach...' />
             </Flex>
-            <TableContainer mt={'40px'}>
+            <TableContainer overflow={'hidden'} mt={'40px'}>
                 <Table variant='simple'>
                     <Thead borderRadius={'6px'} bg={'#F6F8FA'}>
                         <Tr>
@@ -181,19 +294,32 @@ const Filter = ({ numberData }) => {
                     {
                         isLoading ? <Heading fontSize={'22px'} position={'relative'} color={'#152B46'} left={'350px'} >Yuklanmoqda...</Heading> : <Tbody>
                             {
-                                data?.data?.items?.map((item, index) => (
+                                paginatedData?.map((item, index) => (
                                     <Tr cursor={'pointer'} onClick={() => navigate(`/problems/${item?.id}`)} key={index}>
                                         <Td>
-                                            {item?.is_solved ? <CheckIcon /> : item?.attempts === 0 ? "" : item?.attempts}
+                                            {item?.is_solved ? <CheckIcon /> : item?.attempts === 0 ? "" : <Flex align={'center'}>
+                                                <ArrowIcon />
+                                                {item?.attempts}
+                                            </Flex>}
                                         </Td>
-                                        <Td>{item?.title}</Td>
                                         <Td>
-                                            <SolutionIcon />
+                                            <Box w="200px">
+                                                <Text
+                                                    noOfLines={1}
+                                                >
+                                                    {item?.title}
+                                                </Text>
+                                            </Box>
                                         </Td>
-                                        <Td>{item?.acceptance_rate ?? "--"}</Td>
+                                        <Td>
+                                            <Flex align={'center'} justify={'center'}> <SolutionIcon /></Flex>
+                                        </Td>
+                                        <Td>
+                                            <Flex align={'center'} justify={'center'}>{item?.acceptance_rate ?? "--"}</Flex>
+                                        </Td>
                                         <Td bg={`${item?.difficulty === "medium" ? "#FFC107" : item?.difficulty === 'hard' ? "#F44336" : "#4CAF50"}`} {...css.status} >{item?.difficulty}</Td>
                                         <Td>
-                                            <LockIcon />
+                                            <Flex align={'center'} justify={'center'}> <LockIcon /></Flex>
                                         </Td>
                                     </Tr>
                                 ))
@@ -203,6 +329,11 @@ const Filter = ({ numberData }) => {
                     }
                 </Table>
             </TableContainer>
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={(page) => setCurrentPage(page)}
+            />
         </Box>
     );
 }

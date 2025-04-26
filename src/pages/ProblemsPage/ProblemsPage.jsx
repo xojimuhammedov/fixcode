@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar';
 import Filter from './components/Filter';
 import Analitcs from './components/Analitcs';
 import useGetAllQuery from '../../hooks/useGetAllQuery';
+import MyDatePicker from '../../components/DatePicker';
 
 const ProblemsPage = () => {
     const { data } = useGetAllQuery({
@@ -19,6 +20,7 @@ const ProblemsPage = () => {
                     <Filter numberData={data?.data} />
                 </Box>
                 <Box w={'32%'}>
+                    {/* <MyDatePicker /> */}
                     <Analitcs data={data} />
                 </Box>
             </Flex>
