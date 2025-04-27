@@ -9,7 +9,7 @@ const HistoryPage = () => {
         key: "userData",
         url: "/users/me"
     })
-    const { data, isLoading } = useGetAllQuery({
+    const { data } = useGetAllQuery({
         key: "getAllHistoryStatistic",
         url: `/api/v1/submissions/statistics/user/${userData?.data?.id}`,
         params: {}
@@ -42,14 +42,14 @@ const HistoryPage = () => {
                                     color={'#fff'}
                                     w={'100%'}
                                     textAlign={'center'}
-                                >Medium: {data?.data?.difficulty_distribution?.hard}</Box>
+                                >Medium: {data?.data?.difficulty_distribution?.medium}</Box>
                                 <Box
                                     borderRadius="6px"
                                     background="#FF6063"
                                     color={'#fff'}
                                     w={'100%'}
                                     textAlign={'center'}
-                                >Hard: {data?.data?.difficulty_distribution?.medium}</Box>
+                                >Hard: {data?.data?.difficulty_distribution?.hard}</Box>
                             </Flex>
                         </Box>
                         <Box {...css.item}>
@@ -109,14 +109,14 @@ const HistoryPage = () => {
                                     color={'#fff'}
                                     w={'100%'}
                                     textAlign={'center'}
-                                >Medium: {data?.data?.difficulty_distribution?.hard}</Box>
+                                >Medium: {data?.data?.difficulty_distribution?.medium}</Box>
                                 <Box
                                     borderRadius="6px"
                                     background="#FF6063"
                                     color={'#fff'}
                                     w={'100%'}
                                     textAlign={'center'}
-                                >Hard: {data?.data?.difficulty_distribution?.medium}</Box>
+                                >Hard: {data?.data?.difficulty_distribution?.hard}</Box>
                             </Flex>
                         </Box>
                     </Box>

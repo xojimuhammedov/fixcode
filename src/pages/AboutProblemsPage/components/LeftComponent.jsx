@@ -18,8 +18,6 @@ const LeftComponent = () => {
     if (error) {
         toast.error(`Behruzni errori: ${error}`)
     }
-
-    console.log(data);
     
     return (
         <Box {...css.item}>

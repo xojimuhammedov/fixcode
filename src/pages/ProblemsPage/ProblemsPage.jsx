@@ -13,15 +13,14 @@ const ProblemsPage = () => {
         params: {}
     })
 
-    // submissions/statistics/user/1000009
     return (
         <Box className='container'>
             <Navbar />
             <Flex gap={'60px'}>
-                <Box w={'68%'}>
+                <Box w={'72%'}>
                     <Filter numberData={data?.data} />
                 </Box>
-                <Box w={'32%'}>
+                <Box w={'28%'}>
                     {/* <MyDatePicker /> */}
                     <Analitcs data={data} />
                 </Box>
