@@ -11,7 +11,8 @@ import {
     Th,
     Td,
     TableContainer,
-    Heading
+    Heading,
+    Box
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import useGetOneQuery from '../../../hooks/useGetOneQuery';
@@ -31,6 +32,7 @@ const HistoryList = () => {
     const { data, isLoading } = useGetAllQuery({
         key: "getAllHistory",
         url: userId ? `/api/v1/submissions/user/${userId}` : null,
+        params: {}
     })
     return (
         <TableContainer mt={'40px'}>
@@ -51,8 +53,10 @@ const HistoryList = () => {
                                     <Td>
                                         {dayjs(item?.created_at).format('D MMMM')}
                                     </Td>
-                                    <Td>{item?.title}</Td>
-                                    <Td {...css.status} >{item?.status}</Td>
+                                    <Td>{item?.title}
+                                        <Box bg={`${item?.difficulty === "medium" ? "#FFC107" : item?.difficulty === 'hard' ? "#F44336" : "#4CAF50"}`} {...css.statusOne} >{item?.difficulty}</Box>
+                                    </Td>
+                                    <Td color={`${item.status === 'accepted' ? "green" : "red"}`} {...css.status}>{item?.status}</Td>
                                 </Tr>
                             ))
                         }
@@ -68,12 +72,25 @@ export default HistoryList;
 
 const css = {
     status: {
-        fontWeight: "400",
+        fontWeight: "600",
         marginTop: "14px",
     },
     name: {
         color: "#565656",
         fontSize: "14px",
         fontWeight: "400"
+    },
+    statusOne: {
+        borderRadius: "6px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "#fff",
+        fontWeight: "400",
+        marginTop: "6px",
+        cursor: "pointer",
+        textTransform: 'uppercase',
+        width: "80px",
+        height: "22px"
     },
 }

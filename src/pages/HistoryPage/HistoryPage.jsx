@@ -74,61 +74,6 @@ const HistoryPage = () => {
                                 </Flex>
                             </Flex>
                         </Box>
-                        <Box {...css.item}>
-                            <Flex gap={'30px'} m={'10px 0'}>
-                                <Flex flexDirection={'column'}>
-                                    <Box borderRadius={'8px 8px 0px 0px'} height={'150px'} w={'33px'} background={'#D9DFEF'}></Box>
-                                    <Box height={'50px'} w={'33px'} background={'#0153D5'}></Box>
-                                </Flex>
-                                <Flex flexDirection={'column'}>
-                                    <Box borderRadius={'8px 8px 0px 0px'} height={'150px'} w={'33px'} background={'#D9DFEF'}></Box>
-                                    <Box height={'50px'} w={'33px'} background={'#0153D5'}></Box>
-                                </Flex>
-                                <Flex flexDirection={'column'}>
-                                    <Box borderRadius={'8px 8px 0px 0px'} height={'150px'} w={'33px'} background={'#D9DFEF'}></Box>
-                                    <Box height={'50px'} w={'33px'} background={'#0153D5'}></Box>
-                                </Flex>
-                                <Flex flexDirection={'column'}>
-                                    <Box borderRadius={'8px 8px 0px 0px'} height={'150px'} w={'33px'} background={'#D9DFEF'}></Box>
-                                    <Box height={'50px'} w={'33px'} background={'#0153D5'}></Box>
-                                </Flex>
-                                <Flex flexDirection={'column'}>
-                                    <Box borderRadius={'8px 8px 0px 0px'} height={'150px'} w={'33px'} background={'#D9DFEF'}></Box>
-                                    <Box height={'50px'} w={'33px'} background={'#0153D5'}></Box>
-                                </Flex>
-                                <Flex flexDirection={'column'}>
-                                    <Box borderRadius={'8px 8px 0px 0px'} height={'150px'} w={'33px'} background={'#D9DFEF'}></Box>
-                                    <Box height={'50px'} w={'33px'} background={'#0153D5'}></Box>
-                                </Flex>
-                                <Flex flexDirection={'column'}>
-                                    <Box borderRadius={'8px 8px 0px 0px'} height={'150px'} w={'33px'} background={'#D9DFEF'}></Box>
-                                    <Box height={'50px'} w={'33px'} background={'#0153D5'}></Box>
-                                </Flex>
-                            </Flex>
-                            <Flex mt={'24px'} gap={'24px'}>
-                                <Box
-                                    borderRadius="6px"
-                                    background="#52A28A"
-                                    color={'#fff'}
-                                    w={'100%'}
-                                    textAlign={'center'}
-                                >Easy: {data?.difficulty_distribution?.easy}</Box>
-                                <Box
-                                    borderRadius="6px"
-                                    background="#FFBF1E"
-                                    color={'#fff'}
-                                    w={'100%'}
-                                    textAlign={'center'}
-                                >Medium: {data?.difficulty_distribution?.medium}</Box>
-                                <Box
-                                    borderRadius="6px"
-                                    background="#FF6063"
-                                    color={'#fff'}
-                                    w={'100%'}
-                                    textAlign={'center'}
-                                >Hard: {data?.difficulty_distribution?.hard}</Box>
-                            </Flex>
-                        </Box>
                     </Box>
                 </Flex>
             </Box>
