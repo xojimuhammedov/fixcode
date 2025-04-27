@@ -305,7 +305,7 @@ const Filter = ({ numberData }) => {
                         </Tr>
                     </Thead>
                     {
-                        isLoading ? <Heading fontSize={'22px'} position={'relative'} color={'#152B46'} left={'350px'} >Yuklanmoqda...</Heading> : <Tbody>
+                        isLoading ? <Heading fontSize={'22px'} position={'relative'} color={'#152B46'} left={'350px'} >Loading...</Heading> : <Tbody>
                             {
                                 paginatedData?.map((item, index) => (
                                     <Tr cursor={'pointer'} onClick={() => navigate(`/problems/${item?.id}`)} key={index}>
