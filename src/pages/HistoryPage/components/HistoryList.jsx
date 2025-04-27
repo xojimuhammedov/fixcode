@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useGetAllQuery from '../../../hooks/useGetAllQuery';
 import SolutionIcon from '../../../assets/SolutionIcon';
 import LockIcon from '../../../assets/LockIcon';
@@ -14,16 +14,23 @@ import {
     Heading
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
+import useGetOneQuery from '../../../hooks/useGetOneQuery';
 
 const HistoryList = () => {
     const { data: userData } = useGetAllQuery({
         key: "userData",
         url: "/users/me"
     })
+    const [userId, setUserId] = useState(null);
+
+    useEffect(() => {
+        if (userData?.data?.id) {
+            setUserId(userData.data.id);
+        }
+    }, [userData]);
     const { data, isLoading } = useGetAllQuery({
         key: "getAllHistory",
-        url: `/api/v1/submissions/user/${userData?.data?.id}`,
-        params: {}
+        url: userId ? `/api/v1/submissions/user/${userId}` : null,
     })
     return (
         <TableContainer mt={'40px'}>
@@ -32,8 +39,8 @@ const HistoryList = () => {
                     <Tr>
                         <Th {...css.name}>Date</Th>
                         <Th {...css.name}>Subject</Th>
-                        <Th {...css.name}>Difficulty</Th>
-                        <Th {...css.name}>Popularity</Th>
+                        <Th {...css.name}>Status</Th>
+                        {/* <Th {...css.name}>Popularity</Th> */}
                     </Tr>
                 </Thead>
                 {
@@ -42,17 +49,10 @@ const HistoryList = () => {
                             data?.data?.items?.map((item, index) => (
                                 <Tr key={index}>
                                     <Td>
-                                        {dayjs(item?.created_at).format('YYYY-MM-DD')}
+                                        {dayjs(item?.created_at).format('D MMMM')}
                                     </Td>
                                     <Td>{item?.title}</Td>
-                                    {/* <Td>
-                                        <SolutionIcon />
-                                    </Td>
-                                    <Td>{item?.acceptance_rate ?? "--"}</Td> */}
                                     <Td {...css.status} >{item?.status}</Td>
-                                    <Td>
-                                        <LockIcon />
-                                    </Td>
                                 </Tr>
                             ))
                         }
