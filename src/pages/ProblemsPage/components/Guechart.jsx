@@ -69,8 +69,7 @@ const GaugeChart = ({ value = 432, total = 684 }) => {
             direction="column"
             alignItems="center"
             justifyContent="center"
-            bg="blue.50"
-            // p={6}
+            bg="#EDF2FF"
             borderRadius="lg"
             mt={'48px'}
             w="100%"
